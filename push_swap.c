@@ -92,93 +92,102 @@ void ra(t_stack *stack_a)
     stack_a->data[stack_a->top] = first;
 }
 
+void rra(t_stack *stack_a)
+{
+    int i = stack_a->top;
+    if(stack_a->top <1)
+        return;
+    int last = stack_a->data[stack_a->top];
+
+    while(i > 0)
+    {
+        stack_a->data[i] = stack_a->data[i-1];
+        i--;
+    }
+    stack_a->data[0] = last;
+}
+
+void rrb(t_stack *stack_b)
+{
+    int i = stack_b->top;
+    if(stack_b->top < 1)
+        return;
+    int last = stack_b->data[stack_b->top];
+    while(i > 0)
+    {
+        stack_b->data[i] = stack_b->data[i-1];
+        i--;
+    }
+    stack_b->data[0] = last;
+}
+
+void rrr(t_stack *stack_a, t_stack *stack_b)
+{
+    rra(stack_a);
+    rrb(stack_b);
+}
+
+void rr(t_stack *stack_a, t_stack *stack_b)
+{
+    ra(stack_a);
+    rb(stack_b);
+}
+
 // void push(t_stack *stack, int value) {
-//     if (stack->top + 1 == stack->size) {
+//     if (stack->top + 1 ==a stack->size) {
 //         printf("Error: Stack overflow\n");
 //         return;
 //     }
 //     stack->data[++stack->top] = value;
 // }
 
-int pop(t_stack *stack) {
-    if (stack->top == -1) {
-        printf("Error: Stack underflow\n");
-        return -1;
+void free_stack(t_stack *stack) {
+    if (stack) {
+        free(stack->data); // Free the array inside the stack
+        free(stack);       // Free the stack structure itself
     }
-    return stack->data[stack->top--];
 }
 
-int peek(t_stack *stack) {
-    if (stack->top == -1) {
-        printf("Error: Stack is empty\n");
-        return -1;
-    }
-    return stack->data[stack->top];
-}
-
-int is_empty(t_stack *stack) {
-    return (stack->top == -1);
-}
-int main()
-{
-   t_stack *stack_b = create_stack_b(6);
-   t_stack *stack_a = create_stack_a(6);
+int main() {
+    t_stack *stack_b = create_stack_b(6);
+    t_stack *stack_a = create_stack_a(6);
+    
     pb(stack_b, 45);
     pb(stack_b, 65);
     pb(stack_b, 76);
-    // for(int i = 0; i<=stack_b->top; i++)
-    //     printf("%d ", stack_b->data[i]);
-    // sb(stack_b);
-    // for(int i = 0; i<=stack_b->top; i++)
-    //     printf("%d ", stack_b->data[i]);
-    // t_stack *stack_a = create_stack_a(6);
+    pb(stack_b, 15);
+    pb(stack_b, 10);
+    pb(stack_b, 5);
+
+
     pa(stack_a, stack_b);
     pa(stack_a, stack_b);
     pa(stack_a, stack_b);
-    for(int i = 0; i<=stack_a->top; i++)
+    // pa(stack_a, stack_b);
+    // pa(stack_a, stack_b);
+    // pa(stack_a, stack_b);
+    printf("stack b:");
+    for (int i = 0; i <= stack_b->top; i++)
+        printf("%d ", stack_b->data[i]);
+    printf("stack a:");
+    for (int i = 0; i <= stack_a->top; i++)
         printf("%d ", stack_a->data[i]);
-    // sa(stack_a);
-    ra(stack_a);
-    for(int i = 0; i<=stack_a->top; i++)
-        printf("%d ", stack_a->data[i]);
-    // pb(stack_b, 15);
-    // pb(stack_b, 10);
-    // pb(stack_b, 5);
-    // for(int i = 0; i<=stack_b->top; i++)
-    //     printf("%d ", stack_b->data[i]);
-    // ss(stack_a, stack_b);
-    // for(int i = 0; i<=stack_a->top; i++)
-    //     printf("%d ", stack_a->data[i]);
-    // for(int i = 0; i<=stack_b->top; i++)
-    //     printf("%d ", stack_b->data[i]);
+
+    rrr(stack_a, stack_b);
     // rb(stack_b);
-    // for(int i = 0; i<=stack_b->top; i++)
-    //     printf("%d ", stack_b->data[i]);
+    printf("\n");
+
+
+    for (int i = 0; i <= stack_b->top; i++)
+        printf("%d ", stack_b->data[i]);
+
+    for (int i = 0; i <= stack_a->top; i++)
+        printf("%d ", stack_a->data[i]);
+
+    // Free allocated memory
+    free_stack(stack_a);
+    free_stack(stack_b);
+
+    return 0;
 }
 
-// int main() {
-//     t_stack *stack_a = create_stack_a(5);
-//     t_stack *stack_b = create_stack_b(7);
-
-//     push(stack_a, 10);
-//     push(stack_a, 20);
-//     push(stack_a, 30);
-
-//     printf("Top of stack: %d\n", peek(stack_a));  // Output: 30
-//     printf("Pop: %d\n", pop(stack_a));           // Output: 30
-//     printf("Top of stack: %d\n", peek(stack_a)); // Output: 20
-    
-//     push(stack_b, 14);
-//     push(stack_b, 22);
-//     push(stack_b, 34);
-//     for (int i = 0; i <= stack_b->top; i++)
-//         printf("%d ", stack_b->data[i]);
-//     free(stack_b->data);
-//     free(stack_b);
-//     pa(stack_a, 34);
-//     for (int i = 0; i <= stack_a->top; i++)
-//         printf("%d ", stack_a->data[i]);
-//     free(stack_a->data);
-//     free(stack_a);
-//     return 0;
-// }
