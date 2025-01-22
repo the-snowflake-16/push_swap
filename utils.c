@@ -22,6 +22,17 @@ void put_char(int c)
     write(1, &c, 1);
 }
 
+int cheack_double(struct push_swap *start, int value)
+{
+    while (start != NULL)
+    {
+        if(value == start->value)
+            return(0);
+        start = start->next;
+    }
+    return(1);
+}
+
 void atoj(struct push_swap **start, char *str)
 {
     int i = 0;
@@ -38,9 +49,16 @@ void atoj(struct push_swap **start, char *str)
         {
             if (is_negative)
                 result = -result;
+            else if (!cheack_double(*start, result))
+            {
+                printf("DOUBLE number:");
+                free_list(*start);
+                exit(EXIT_FAILURE);
+            }
             push_to_a(start, result);
             result = 0;
             is_negative = 0;
+
         }
         else
         {
@@ -53,6 +71,12 @@ void atoj(struct push_swap **start, char *str)
     if (result != 0 || is_negative) {
         if (is_negative)
             result = -result;
+        if (!cheack_double(*start, result))
+        {
+            printf("DOUBLE number:");
+            free_list(*start);
+            exit(EXIT_FAILURE);
+        }
         push_to_a(start, result);
     }
 }
@@ -89,12 +113,14 @@ void atoj(struct push_swap **start, char *str)
 //     }
 // }
 
-// int main()
-// {
-//     struct push_swap *start = NULL;
-//     char str[] = "45 76 -87 34 56"; // Example string with positive and negative numbers
 
-//     atoj(&start, str);
-//     print_list(start);
-//     free_list(start);
-// }
+int main()
+{
+    struct push_swap *start = NULL;
+    char str[] = "45 76 45 34 56"; // Example string with positive and negative numbers
+
+    atoj(&start, str);
+
+    print_list(start);
+    free_list(start);
+}
