@@ -114,13 +114,13 @@ void atoj(struct push_swap **start, char *str)
 // }
 
 
-int main()
-{
-    struct push_swap *start = NULL;
-    char str[] = "45 76 45 34 56"; // Example string with positive and negative numbers
+// int main()
+// {
+//     struct push_swap *start = NULL;
+//     char str[] = "45 76 45 34 56"; // Example string with positive and negative numbers
 
-    atoj(&start, str);
+//     atoj(&start, str);
 
-    print_list(start);
-    free_list(start);
-}
+//     print_list(start);
+//     free_list(start);
+// }
