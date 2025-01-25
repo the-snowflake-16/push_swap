@@ -8,7 +8,7 @@ CPPFLAGS = -I $(INCLUDE_DIR)
 COMPILE = $(CC) $(FLAGS) $(CPPFLAGS)
 
 SOURCE = $(wildcard $(SRC_DIR)/*.c)
-OBJECT = $(patsubst $(SRC_DIR)/*.c, $(SRC_DIR)/*o, $(SOURCE))
+OBJECT = $(patsubst $(SRC_DIR)/*.c, *o, $(SOURCE))
 
 all: create
 
@@ -16,8 +16,8 @@ create: $(OBJECT)
 	$(COMPILE) $(OBJECT) -o $(NAME)
 
 clean:
-	rm -f $(SRC_DIR)/$(NAME)
-	rm -f $(SRC_DIR)/*.o 
+	rm -f $(NAME)
+	rm -f *.o 
 
 re: clean all
 

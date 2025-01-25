@@ -8,6 +8,17 @@
 
 
 #include <string.h>
+// void	free_matrix(char **argv)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	if (NULL == argv || NULL == *argv)
+// 		return ;
+// 	while (argv[i])
+// 		free(argv[i++]);
+// 	free(argv - 1);
+// }
 void str_concat(int argc, char *argv[])
 {
     int i = 0;
@@ -26,12 +37,13 @@ void str_concat(int argc, char *argv[])
         j++;
     }
     argv[1][n++] = '\0';
+    // free_matrix(argv);
     // printf("%s\n", argv[1]);
     // printf("%d", argc);
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
+    if (argc < 2 || (2 == argc && !argv[1][0])) {
         printf("Usage: %s <numbers>\n", argv[0]);
         return 1;
     }
@@ -40,13 +52,24 @@ int main(int argc, char *argv[]) {
         str_concat(argc, argv);
     }
 
-    struct push_swap *start = NULL;
+    struct push_swap *start_a = NULL;
+    struct push_swap *start_b = NULL;
 
-    atoj(&start, argv[1]);
+    atoj(&start_a, argv[1]);
+    print_list(start_a);
+    if(stack_sorted(start_a))
+    {
+        free_list(start_a);
+        return (0);
+    }
+    if(!stack_sorted(start_a))
+    {
+        tiny_sort(&start_a);
+    }
 
-    print_list(start);
-
-    free_list(start);
+    print_list(start_a);
+    free_list(start_a);
+    free_list(start_b);
 
     return 0;
 }

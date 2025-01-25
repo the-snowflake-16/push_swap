@@ -55,7 +55,7 @@ void atoj(struct push_swap **start, char *str)
                 free_list(*start);
                 exit(EXIT_FAILURE);
             }
-            push_to_a(start, result);
+            push_to_a(start, new_stract((int)result));
             result = 0;
             is_negative = 0;
 
@@ -77,7 +77,7 @@ void atoj(struct push_swap **start, char *str)
             free_list(*start);
             exit(EXIT_FAILURE);
         }
-        push_to_a(start, result);
+        push_to_a(start, new_stract((int)result));
     }
 }
 

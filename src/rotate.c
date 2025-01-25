@@ -1,7 +1,12 @@
 #include "push_swap.h"
 
+// Shift up all elements of stack a by 1.
+// The first element becomes the last one.
+
 void rotate(struct push_swap **start)
 {
+    if(start == NULL)
+        exit(EXIT_FAILURE); 
     struct push_swap *tmp;
     struct push_swap *tmp2;
     tmp = (*start);
@@ -24,6 +29,7 @@ void rb(struct push_swap **start_b)
 
 void rr(struct push_swap **start_a, struct push_swap **start_b)
 {
-    ra(start_a);
-    rb(start_b);
+    rotate(start_a);
+    rotate(start_b);
+    write(1, "rr\n", 3);
 }

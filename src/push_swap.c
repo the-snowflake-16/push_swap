@@ -1,6 +1,6 @@
 #include "push_swap.h"
 // #include <stdio.h>
-void push_to_a(struct push_swap **start, int value)
+struct push_swap *new_stract(int value)
 {
     struct push_swap *new_value;
     new_value = malloc(sizeof(struct push_swap));
@@ -8,9 +8,23 @@ void push_to_a(struct push_swap **start, int value)
     {
         exit(EXIT_FAILURE);
     }
+    new_value->next = NULL;
     new_value->value = value;
-    new_value->next = *start;
-    *start = new_value;
+    return (new_value);
+}
+void push_to_a(struct push_swap **start, struct push_swap *new_value)
+{
+
+    struct push_swap *last;
+    if(!new_value)
+        return ;
+    if(!*start)
+    {
+        *start = new_value;
+        return ;
+    }
+    last = get_last(*start);
+    last->next = new_value;
 }
 
 void print_list (struct push_swap *start)
@@ -34,27 +48,25 @@ void free_list(struct push_swap *start)
     }
 }
 
-
 // int main()
 // {
 //     struct push_swap *start_a = NULL;
 //     struct push_swap *start_b = NULL;
-//     // start = malloc(sizeof(struct push_swap));
-//     push_to_a(&start_a, 45);
-//     push_to_a(&start_a, 78);
-//     push_to_a(&start_a, 56);
+
+//     push_to_a(&start_a, 1);
+//     push_to_a(&start_a, 3);
+//     push_to_a(&start_a, 2);
 //     push_to_a(&start_a, 4);
-//     push_to_a(&start_a, 65);
-//     push_to_a(&start_a, 67);
-//     push_to_a(&start_a, 12);
-//     push_to_a(&start_a, 56);
-//     push_to_a(&start_a, 22);
-//     push_to_a(&start_a, 43);
-//     push_to_a(&start_a, 44);
-//     push_to_a(&start_a, 33);
+
 //     printf("Stack_A\n");
 //     print_list(start_a);
-
+//     rra(&start_a);
+//     pb(&start_a, &start_b);
+//     pb(&start_a, &start_b);
+//     printf("Stack_A\n");
+//     print_list(start_a);
+//     printf("Stack_B\n");
+//     print_list(start_b);
 
 
 //     pb(&start_a, &start_b);
