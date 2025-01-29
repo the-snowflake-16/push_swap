@@ -1,5 +1,10 @@
 #include "push_swap.h"
 
+/* 
+ * Moves the top element from the source stack (src) to the destination stack (dest).
+ * If the source stack is empty, the function does nothing.
+ */
+
 void push (struct push_swap **src, struct push_swap **dest)
 {
     struct push_swap *new;
