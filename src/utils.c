@@ -49,12 +49,19 @@ void atoj(struct push_swap **start, char *str)
         {
             if (is_negative)
                 result = -result;
-            else if (!cheack_double(*start, result))
+            if (!cheack_double(*start, result))
             {
-                printf("DOUBLE number:");
+                printf("Error double numbers\n");
                 free_list(*start);
                 exit(EXIT_FAILURE);
             }
+            if ((int)result > INT_MAX || (int)result < INT_MIN)
+            {
+                printf("Error max or min value\n");
+                free_list(*start);
+                exit(EXIT_FAILURE);
+            }
+            // printf("%d - %d\n", INT_MAX, INT_MIN);
             push_to_a(start, new_stract((int)result));
             result = 0;
             is_negative = 0;
@@ -62,7 +69,7 @@ void atoj(struct push_swap **start, char *str)
         }
         else
         {
-            printf("ERROR");
+            printf("ERROR\n");
             free_list(*start);
             exit(EXIT_FAILURE);
         }
@@ -73,7 +80,7 @@ void atoj(struct push_swap **start, char *str)
             result = -result;
         if (!cheack_double(*start, result))
         {
-            printf("DOUBLE number:");
+            printf("DOUBLE number:\n");
             free_list(*start);
             exit(EXIT_FAILURE);
         }

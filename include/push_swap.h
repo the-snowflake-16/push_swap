@@ -11,8 +11,9 @@ struct push_swap
 {
     int value;
     int index;
-    int target_pos;
+    struct push_swap *target_pos;
     int cost_b;
+    struct push_swap *cheapest;
     struct push_swap *next;
 };
 
@@ -34,6 +35,7 @@ void pa(struct push_swap **start_b, struct push_swap **start_a);
 void ra(struct push_swap **start_a);
 void rb(struct push_swap **start_b);
 void rr(struct push_swap **start_a, struct push_swap **start_b);
+void rotatea(struct push_swap **a, struct push_swap **b);
 
 // rrotate
 void rra(struct push_swap **start_a);
@@ -59,6 +61,7 @@ void free_list(struct push_swap *start);
 
 // position
 void init_start(struct push_swap **a, struct push_swap **b);
+void get_position (struct push_swap **start);
 
 // push_swap_proces
 void push_swap(struct push_swap **start_a, struct push_swap **start_b);

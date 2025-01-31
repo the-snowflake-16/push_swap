@@ -36,7 +36,11 @@ int main(int argc, char *argv[]) {
         str_concat(argc, argv);
     }
     atoj(&start_a, argv[1]);
-
+    if (len_stack(start_a ) < 2)
+    {
+        printf("ERROR less than 2 numbers\n");
+        return (0);
+    }
     push_swap(&start_a, &start_b);
     if(stack_sorted(start_a))
     {

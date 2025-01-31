@@ -16,8 +16,9 @@ struct push_swap *new_stract(int value)
     new_value->next = NULL;
     new_value->value = value;
     new_value->index = 0;
-    new_value->target_pos = 0;
+    // new_value->target_pos = NULL;
     new_value->cost_b = 0;
+    // new_value->cheapest = NULL;
     return (new_value);
 }
 
@@ -50,8 +51,8 @@ void print_list (struct push_swap *start)
 {
     while (start != NULL)
     {
-        printf("%d -> ", start->value);
-        printf("   %d   ", start->index);
+        printf("|%d -> ", start->value);
+        printf(" %d| ", start->index);
         start = start->next;
     }
     printf("NULL\n");
