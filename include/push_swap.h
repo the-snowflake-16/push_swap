@@ -19,8 +19,6 @@ struct push_swap
 
 // utils
 int ft_isdigit(char *c);
-void put_char(int c);
-void atoj(struct push_swap **start, char *str);
 
 // swap
 void sa(struct push_swap *start_a);
@@ -35,7 +33,6 @@ void pa(struct push_swap **start_b, struct push_swap **start_a);
 void ra(struct push_swap **start_a);
 void rb(struct push_swap **start_b);
 void rr(struct push_swap **start_a, struct push_swap **start_b);
-void rotatea(struct push_swap **a, struct push_swap **b);
 
 // rrotate
 void rra(struct push_swap **start_a);
@@ -65,5 +62,15 @@ void get_position (struct push_swap **start);
 
 // push_swap_proces
 void push_swap(struct push_swap **start_a, struct push_swap **start_b);
+
+
+int ft_isdigit(char *c);
+int ft_strlen(const char *s);
+int count_words(const char *s, char sep);
+int check_double(struct push_swap *start, int value);
+char **ft_split(const char *str, char separator);
+void	stack_init(char **argv, struct push_swap **a);
+
+void proces(struct push_swap **a, struct push_swap **b);
 #endif
 

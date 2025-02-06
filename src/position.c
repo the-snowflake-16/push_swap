@@ -36,8 +36,6 @@ struct push_swap *best_position(struct push_swap *start, int value)
         }
         start = start->next;
     }
-
-    // Если нет числа больше value, вставляем после min (зацикленный стек)
     if (!target_pos || value > max->value)
         target_pos = min;
 
@@ -134,14 +132,6 @@ void init_start(struct push_swap **a, struct push_swap **b)
     get_cheapest(*b);
 }
 
-// struct push_swap *return_cheapes(struct push_swap *start)
-// {
-//     if (!start)
-//         return NULL;
-
-//     return start->cheapest; // Теперь сразу возвращаем установленный `cheapest`
-// }
-
 /* Get target position */
 
 struct push_swap *get_target(struct push_swap *a)
@@ -155,121 +145,48 @@ struct push_swap *get_target(struct push_swap *a)
     return NULL;
 }
 
-void rotatea(struct push_swap **a, struct push_swap **b)
+
+void rotatea(struct push_swap **a, struct push_swap **b, struct push_swap *cheapest_index, struct push_swap *target_index)
 {
-    struct push_swap *cheapest_index = (*b)->cheapest;
-    struct push_swap *trarget_index =  best_position(*a, cheapest_index->value);
-    // printf("%d\n", trarget_index->value);
+    int size_b = len_stack(*b);  // Cache the size of stack b
+    int size_a = len_stack(*a);  // Cache the size of stack a
+
+    // Rotate stack b to the cheapest_index
     while (*b != cheapest_index)
     {
-        if (cheapest_index->index > len_stack(*b) / 2)
+        if (cheapest_index->index > size_b / 2)
             rrb(b);
         else
             rb(b);
     }
-    while((*a) != trarget_index)
+
+    // Rotate stack a to the target_index
+    while (*a != target_index)
     {
-        if(trarget_index->index > len_stack(*a) / 2)
+        if (target_index->index > size_a / 2)
             rra(a);
         else
             ra(a);
     }
-        
-    pa(b, a);
+
 }
 
-// void move_b(struct push_swap **a, struct push_swap **b)
-// {
-//     struct push_swap *cheapest_index = (*b)->cheapest;
-//     struct push_swap *target_index = get_target(*a);
-//     printf("%d\n", target_index->value);
-//     if (!cheapest_index) return;  // Добавляем проверку
 
-//     while (*b != cheapest_index)
-//     {
-//         if (cheapest_index->index > len_stack(*b) / 2)
-//             rrb(b);
-//         else
-//             rb(b);
-//     }
-//     // while (*a != target_index)
-//     // {
-//     //     ra(a);
-//     // }
+void proces(struct push_swap **a, struct push_swap **b)
+{
+
+
+    while (*b)
+    {
+        struct push_swap *cheapest_index = (*b)->cheapest;
+        struct push_swap *target_index = best_position(*a, cheapest_index->value);
+
+        rotatea(a, b, cheapest_index, target_index);
     
-//     pa(b, a);
-// }
+        pa(b, a);  // Push the element from b to a
 
+        // Reset the stacks to their starting position
+        init_start(a, b);
+    }
 
-
-// void move_b(struct push_swap **a, struct push_swap **b)
-// {
-//     if (!b || !*b) return;
-//     print_list(*b);
-//     struct push_swap *cheapest_index = os(*b);
-//     printf("%d - %d\n", cheapest_index->value, (*b)->value);
-
-//     // if (cheapest_index != (*b))
-//     // {
-//     //     rrb(b);
-//     // }
-// }
-
-// int main()
-// {
-//     struct push_swap *start_a = NULL;
-//     struct push_swap *start_b = NULL;
-
-//     push_to_a(&start_a, new_stract(54));
-//     push_to_a(&start_a, new_stract(44));
-//     push_to_a(&start_a, new_stract(5));
-//     push_to_a(&start_a, new_stract(14));
-//     push_to_a(&start_a, new_stract(150));
-//     push_to_a(&start_a, new_stract(6));
-//     push_to_a(&start_a, new_stract(16));
-//     push_to_a(&start_a, new_stract(22));
-//     push_to_a(&start_a, new_stract(50));
-//     push_to_a(&start_a, new_stract(85));
-//     push_to_a(&start_a, new_stract(76));
-//     push_to_a(&start_a, new_stract(55));
-//     push_to_a(&start_a, new_stract(45));
-//     push_to_a(&start_a, new_stract(40));
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b); 
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     pb(&start_a, &start_b);
-//     tiny_sort(&start_a);
-//     print_list(start_a);
-//     while (start_b)
-//     {
-//         init_start(&start_a, &start_b);
-//         rotatea(&start_a, &start_b); 
-//         print_list(start_a);     /* code */
-//     }
-    
-
-
-
-
-    // print_list(start_a);
-    // init_start(&start_a, &start_b);
-    // rotatea(&start_a, &start_b);
-    // init_start(&start_a, &start_b);
-    // print_list(start_a);
-    // rotatea(&start_a, &start_b);
-    // init_start(&start_a, &start_b);
-    // print_list(start_a);
-    // rotatea(&start_a, &start_b);
-    // init_start(&start_a, &start_b);
-    // print_list(start_a);
-    // move_b(start_a, start_b);
-
-//     free_list(start_a);
-// }
+}
